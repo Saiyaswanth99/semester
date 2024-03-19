@@ -59,13 +59,13 @@ if selected == "Home":
 
             <h2 style="color:#176397">Project Overview</h2>
 
-            <p style="color:#1D4665">
+            <p style="color:white">
                 This project includes the analysis of sleep health and lifestyle dataset and an application for predicting stress levels using machine learning. The dataset consists of 400 rows and 13 columns, encompassing various demographic, health, and lifestyle variables.
             </p>
 
             <h2 style="color:#176397">Project Objectives</h2>
 
-            <p style="color:#1D4665">
+            <p style="color:white">
                 The main objectives of the project are to analyze and visualize the data related to health, lifestyle, and demographic factors, derive actionable insights from the visualizations, and predict stress levels of individuals using machine learning techniques.
             </p>
             """,
@@ -122,7 +122,7 @@ if selected == "Dataset":
         """
         <h2 style="color:#176397">Dataset Preview</h2>
 
-        <p style="color:#1D4665">
+        <p style="color:white">
             The dataset consists of 400 rows and 13 columns, encompassing various demographic, health, and lifestyle variables. The dataset is divided into two parts: the first part contains demographic, health, and lifestyle variables, and the second part contains sleep health variables. The dataset contains 13 columns, out of which 12 are features and 1 is the target variable.
         </p>
 
