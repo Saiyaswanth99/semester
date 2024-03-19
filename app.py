@@ -9,7 +9,7 @@ import time
 
 
 st.set_page_config(
-    page_title="Stress Level Application",
+    page_title="Stress Level Prediction Application",
     page_icon="💤",
     initial_sidebar_state="expanded"
 )
