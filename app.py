@@ -17,7 +17,7 @@ st.set_page_config(
 
 st.title('Stress Level Prediction App 💤')
 
-st.markdown('<span style="color:gray">This app predicts the stress level of a person based on the data provided.</span>', unsafe_allow_html=True)
+st.markdown('<span style="color:gray">This app predicts the stress level of a person and provides remidial steps to recover if the persons stress level is high based on the data provided.</span>', unsafe_allow_html=True)
 
 homepage, knowledge, prediction = st.columns(3)
 
@@ -85,12 +85,6 @@ if selected == "Home":
                 </ul>
             </p>
             <hr>
-            <br>
-            <p align='right'>
-                <a href="https://www.github.com/AshNumpy/Sleep-Health-ML-Project" target="_blank">View on GitHub</a>
-                <br>
-                <a href="https://public.tableau.com/app/profile/ramazan.erduran1816/viz/StressLevelHealth/Overview" target="_blank">See Dashboard on Tableau</a>
-            </p>
             """,
             unsafe_allow_html=True
         )
@@ -460,6 +454,59 @@ if selected == "Prediction":
         unsafe_allow_html=True)       
 
     st.write('---') 
+
+    stress_level = np.round(y_pred[0],2)
+    condition = "Unknown"
+    remedies = []
+    if(stress_level <= 5):
+        condition = "Normal"
+    elif (stress_level > 5 and stress_level <= 8):
+        condition = "High"
+    elif (stress_level > 8 and stress_level <= 10):
+        condition = "Extreme"
+    else:
+        condition = "Abnormal. This is a rare case"
+
+    def find_remedies(age, sleepDuration, bmi, restingHeartRate, sleepDisorder):
+        if(age > 21):
+            remedies.append("You are {}, proper diet plan has to be maintained at this age".format(age))
+        if(sleepDuration  < 7):
+            remedies.append("Increase your sleep duration from {} to atleast 9 hours a day".format(sleepDuration))
+        if(bmi == "Overweight"):
+            remedies.append("Exercise daily and maintain a proper diet to decrease your weight")
+        elif(bmi == "Obese"):
+            remedies.append("It's better to consult a doctor regaurding your obesity")
+        if(restingHeartRate > 100):
+            remedies.append("Your resting heart rate is {}, ideally it should be between 60-100".format(restingHeartRate))
+        if(sleepDisorder == "Sleep Apnea"):
+            remedies.append("Exercising, such as aerobic exercise and strength training, can help improve your {} condition.".format(sleepDisorder))
+            remedies.append("Don't drink alcohol or use some anti-anxiety medicines or sleeping pills")
+            remedies.append("Sleep on your side or stomach rather than on your back")
+        elif(sleepDisorder == "Insomnia"):
+            remedies.append("Keep your bedtime and wake time the same every day, including on weekends")
+            remedies.append("If you take medicines regularly, check with your doctor to see if they may be playing a part in your insomnia")
+            remedies.append("Get out of bed when you're not sleeping")
+
+
+    find_remedies(age, sleepDuration, bmi, restingHeartRate, sleepDisorder)
+
+    st.markdown(
+    f"""
+    <h2 style="color:#176397">Remedies based on stress level</h2>
+
+    Your stress level is {stress_level} which is {condition}. Here are some remedies for you:
+    """,
+    unsafe_allow_html=True)
+
+    if len(remedies) == 0:
+        st.markdown("<p>Everything is fine. No remedies needed.</p>", unsafe_allow_html=True)
+    else:
+        st.markdown("<ul>", unsafe_allow_html=True)
+        for remedy in remedies:
+            st.markdown(f"<li>{remedy}</li>", unsafe_allow_html=True)
+        st.markdown("</ul>", unsafe_allow_html=True)
+
+
 
 
 if selected == "Contact":
